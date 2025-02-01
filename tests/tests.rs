@@ -787,7 +787,7 @@ fn test_string_collect() {
 fn test_string_collect_seveal_times() {
     let text = "hello world";
     let mut u = ArrayString::<22>::try_from_iterator(text.chars()).unwrap();
-    u.try_push_iterator(text.chars()).unwrap();
+    u.try_extend(text.chars()).unwrap();
     assert_eq!(u.as_str(), &format!("{}{}", text, text));
     assert_eq!(u.len(), text.len()*2);
 }

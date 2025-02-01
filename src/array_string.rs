@@ -295,7 +295,7 @@ impl<const CAP: usize> ArrayString<CAP>
         Ok(())
     }
 
-    pub fn try_push_iterator<I: IntoIterator<Item = char>>(&mut self, value: I) -> Result<(), CapacityError<()>> {
+    pub fn try_extend<I: IntoIterator<Item = char>>(&mut self, value: I) -> Result<(), CapacityError<()>> {
         let mut len = self.len();
         let value = value.into_iter();
         if value.size_hint().0 > self.capacity() - len {
@@ -321,7 +321,7 @@ impl<const CAP: usize> ArrayString<CAP>
 
     pub fn try_from_iterator<I: IntoIterator<Item = char>>(value: I) -> Result<Self, CapacityError<()>> {
         let mut string = Self::new();
-        string.try_push_iterator(value)?;
+        string.try_extend(value)?;
         Ok(string)
     }
 
